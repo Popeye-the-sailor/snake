@@ -11,7 +11,7 @@
 				g = gP.getContext('2d'),
 				a = null; //ЕБЛОко
 				sBody = null, //змеюка
-				dir = 2,
+				dir = 1,
 				s = 20;
 		
 		gP.width = 400;
@@ -54,15 +54,27 @@
 			sBody.push(f);
 			sBody.splice(0,1);
 			
-			sBody.forEach(function(f, i){
-				if (dir == 1) if (f.x >= gP.width) f.x = 0;
-				if (dir == 2) if (f.y >= gP.height) f.y = 0;
-				if (dir == 3) if (f.x < 0) f.x = gP.width;
-				if (dir == 4) if (f.y < 0) f.y = gP.height;
+			sBody.forEach(function(pob, i){
+				if (dir == 1) if (pob.x >= gP.width) pob.x = 0;
+				if (dir == 2) if (pob.y >= gP.height) pob.y = 0;
+				if (dir == 3) if (pob.x < 0) pob.x = gP.width;
+				if (dir == 4) if (pob.y < 0) pob.y = gP.height;
+				if (pob.x == a[0] && pob.y == a[1]) newA(), sBody.unshift({x: f.x -s, y:l.y});
+				g.fillRect(pob.x, pob.y, s, s); 
 			});
 			
-			g.fillRect(f.x, f.y, s, s);
+			
+			 // g.fillRect(f.x, f.y, s, s);
 		}, 60);
+		
+		onkeydown = function (e) {
+			var k = e.keyCode;
+			if ([38,39,40,37].indexOf(k) >= 0 ) e.preventDefault;
+			if (k == 39 && dir != 3) dir = 1;
+			if (k == 40 && dir != 4) dir = 2;
+			if (k == 37 && dir != 1) dir = 3;
+			if (k == 38 && dir != 2) dir = 4; 
+		}
 	</script>
 </body>
 </html>
