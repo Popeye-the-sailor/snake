@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Snake_V2</title>
+</head>
+<body>
+	<canvas id = 'gP' style="border: 1px solid black">HTML5 don't work</canvas>
+	<script>		
+		var gP = document.getElementById('gP'),
+				g = gP.getContext('2d'),
+				a = null; //ЕБЛОко
+				sBody = null, //змеюка
+				dir = 2,
+				s = 20;
+		
+		gP.width = 400;
+		gP.height = 400;
+		
+		function  rand (min, max) {
+			k = Math.floor(Math.random() * (max - min));
+			return (Math.round (k / s) * s);
+		}
+		
+		function newA (){
+			a = [rand(0, gP.width), rand(0, gP.height)];
+		}
+		
+		function newB (){
+			sBody = [{x: 0, y: 0}];
+		}
+		
+		newA();
+		newB();
+		
+		setInterval(function(){
+			if (a[0] + s >= gP.width || a[1] + s >= gP.height) newA();
+			g.clearRect(0, 0, gP.width, gP.height); //очищаем старое
+			g.fillStyle = 'red';
+			g.fillRect(a[0], a[1], s, s);//яблоко на холсте 30 х 30 с коорд. а0 и а1
+			g.fillStyle = '#000';//черный	
+			
+			var m = sBody[0], //object
+					f = {x: m.x, y: m.y}, //coords
+					l = sBody[sBody.length - 1]; //length
+			
+			console.log(m);
+			console.log(f);
+			if (dir == 1) f.x = l.x + s, f.y = l.y;
+			if (dir == 2) f.x = f.x, f.y = l.y + s;
+			if (dir == 3) f.x = l.x - s, f.y = l.y;
+			if (dir == 4) f.x = l.x, f.y = l.y - s;
+			
+			sBody.push(f);
+			sBody.splice(0,1);
+			
+			sBody.forEach(function(f, i){
+				if (dir == 1) if (f.x >= gP.width) f.x = 0;
+				if (dir == 2) if (f.y >= gP.height) f.y = 0;
+				if (dir == 3) if (f.x < 0) f.x = gP.width;
+				if (dir == 4) if (f.y < 0) f.y = gP.height;
+			});
+			
+			g.fillRect(f.x, f.y, s, s);
+		}, 60);
+	</script>
+</body>
+</html>
