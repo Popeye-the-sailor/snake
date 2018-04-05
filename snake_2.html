@@ -44,17 +44,15 @@
 					f = {x: m.x, y: m.y}, //coords
 					l = sBody[sBody.length - 1]; //length
 			
-			console.log(m);
-			console.log(f);
 			if (dir == 1) f.x = l.x + s, f.y = l.y;
-			if (dir == 2) f.x = f.x, f.y = l.y + s;
+			if (dir == 2) f.x = l.x, f.y = l.y + s;
 			if (dir == 3) f.x = l.x - s, f.y = l.y;
 			if (dir == 4) f.x = l.x, f.y = l.y - s;
 			
 			sBody.push(f);
 			sBody.splice(0,1);
 			
-			sBody.forEach(function(pob, i){
+			sBody.forEach(function(pob){
 				if (dir == 1) if (pob.x >= gP.width) pob.x = 0;
 				if (dir == 2) if (pob.y >= gP.height) pob.y = 0;
 				if (dir == 3) if (pob.x < 0) pob.x = gP.width;
@@ -62,9 +60,6 @@
 				if (pob.x == a[0] && pob.y == a[1]) newA(), sBody.unshift({x: f.x -s, y:l.y});
 				g.fillRect(pob.x, pob.y, s, s); 
 			});
-			
-			
-			 // g.fillRect(f.x, f.y, s, s);
 		}, 60);
 		
 		onkeydown = function (e) {
